@@ -1,0 +1,18 @@
+{
+  "projects": {
+    "default": "ai-for-math-platform"
+  },
+  "targets": {
+    "ai-for-math-platform": {
+      "hosting": {
+        "site-one": [
+          "your-default-site-id"
+        ],
+        "coi-form-site": [
+          "coi-form"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

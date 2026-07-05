@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Reviewer's Conflict of Interest</title>
+  <title>Reviewer's Conflict of Interest | AI for Math Fund</title>
   
   <!-- SurveyJS Styles -->
   <link href="https://unpkg.com/survey-core/survey-core.min.css" type="text/css" rel="stylesheet">
+  <link href="https://db.onlinewebfonts.com/c/4cae543bca37f9c0d67178805b31cbb1?family=Plain-Ultralight" rel="stylesheet">
   
   <!-- SurveyJS Scripts -->
   <script type="text/javascript" src="https://unpkg.com/survey-core/survey.core.min.js"></script>
@@ -22,9 +23,14 @@
     }
 
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
-      padding: 40px 20px;
+      font-family: "Plain-Ultralight", sans-serif;
+      background-color: #f8f9fa;
+      min-height: 100vh;
+    }
+
+    /* ========== Main Content ========== */
+    .main-content {
+      padding: 40px 20px 60px;
     }
     
     .container {
@@ -34,7 +40,7 @@
 
     .logo-container {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 35px;
     }
     
     .logo {
@@ -43,32 +49,68 @@
       object-fit: contain;
       max-width: 300px;
     }
+
+    .site-title {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #333;
+      margin: 12px 0 4px;
+    }
+
+    .tagline {
+      font-size: 14px;
+      color: #64748b;
+      font-weight: 400;
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .page-title h2 {
+      color: #333;
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .page-title p {
+      color: #64748b;
+      font-size: 15px;
+    }
     
     #surveyContainer {
       background: white;
       padding: 40px;
-      border: 1px solid #ddd;
+      border: 1px solid #e2e8f0;
       border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
     
     /* Override SurveyJS button colors */
     .sv-btn {
       background-color: #FF7F50 !important;
+      border-radius: 8px !important;
+      font-weight: 500 !important;
+      transition: all 0.3s ease !important;
     }
     
     .sv-btn:hover {
       background-color: #ff6a3d !important;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(255, 127, 80, 0.35) !important;
     }
 
-    /* Success Message */
+    /* ========== Success Message ========== */
     #successMessage {
       display: none;
       background: white;
       padding: 60px 40px;
-      border: 1px solid #ddd;
+      border: 1px solid #e2e8f0;
       border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       text-align: center;
     }
 
@@ -78,7 +120,7 @@
     }
 
     .success-title {
-      font-size: 32px;
+      font-size: 30px;
       color: #333;
       margin-bottom: 20px;
       font-weight: 600;
@@ -86,19 +128,19 @@
 
     .success-text {
       font-size: 16px;
-      color: #666;
+      color: #64748b;
       line-height: 1.8;
       max-width: 500px;
       margin: 0 auto;
     }
 
-    /* Error Message */
+    /* ========== Error Message ========== */
     .error-message {
       background: white;
       padding: 40px;
-      border: 1px solid #ddd;
+      border: 1px solid #e2e8f0;
       border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       text-align: center;
     }
 
@@ -109,40 +151,43 @@
 
     .error-title {
       font-size: 24px;
-      color: #d32f2f;
+      color: #dc2626;
       margin-bottom: 15px;
       font-weight: 600;
     }
 
     .error-text {
       font-size: 16px;
-      color: #666;
+      color: #64748b;
       margin-bottom: 25px;
     }
 
     .retry-button {
-      padding: 12px 30px;
-      font-size: 14px;
+      padding: 14px 32px;
+      font-size: 15px;
+      font-weight: 500;
       cursor: pointer;
       background-color: #FF7F50;
       color: white;
       border: none;
-      border-radius: 6px;
-      transition: background-color 0.3s;
+      border-radius: 8px;
+      transition: all 0.3s ease;
     }
 
     .retry-button:hover {
       background-color: #ff6a3d;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(255, 127, 80, 0.35);
     }
 
-    /* Loading overlay */
+    /* ========== Loading Overlay ========== */
     .loading-overlay {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: rgba(255, 255, 255, 0.95);
+      background-color: rgba(255, 255, 255, 0.97);
       z-index: 9999;
       display: flex;
       flex-direction: column;
@@ -153,7 +198,7 @@
     .loading-spinner {
       width: 50px;
       height: 50px;
-      border: 4px solid #f0f0f0;
+      border: 4px solid #e2e8f0;
       border-top: 4px solid #FF7F50;
       border-radius: 50%;
       animation: spin 1s linear infinite;
@@ -167,7 +212,7 @@
     .loading-text {
       margin-top: 20px;
       font-size: 16px;
-      color: #333;
+      color: #475569;
     }
 
     .page-content {
@@ -179,7 +224,7 @@
       opacity: 1;
     }
 
-    /* Custom Alert Modal */
+    /* ========== Custom Alert Modal ========== */
     .custom-alert-overlay {
       display: none;
       position: fixed;
@@ -195,9 +240,9 @@
 
     .custom-alert-box {
       background: white;
-      padding: 30px;
+      padding: 35px;
       border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
       max-width: 400px;
       width: 90%;
       text-align: center;
@@ -210,24 +255,54 @@
 
     .custom-alert-message {
       font-size: 16px;
-      color: #333;
-      margin-bottom: 20px;
-      line-height: 1.5;
+      color: #374151;
+      margin-bottom: 25px;
+      line-height: 1.6;
     }
 
     .custom-alert-button {
-      padding: 10px 30px;
-      font-size: 14px;
+      padding: 12px 32px;
+      font-size: 15px;
+      font-weight: 500;
       cursor: pointer;
       background-color: #FF7F50;
       color: white;
       border: none;
-      border-radius: 6px;
-      transition: background-color 0.3s;
+      border-radius: 8px;
+      transition: all 0.3s ease;
     }
 
     .custom-alert-button:hover {
       background-color: #ff6a3d;
+      transform: translateY(-1px);
+    }
+
+    /* ========== Footer ========== */
+    .site-footer {
+      text-align: center;
+      padding: 20px;
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    .sd-root-modern {
+      --sjs-font-family: "Plain-Ultralight", sans-serif;
+    }
+
+    /* ========== User Email Badge ========== */
+    .user-email-badge {
+      position: fixed;
+      top: 16px;
+      right: 20px;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 13px;
+      color: #475569;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+      z-index: 100;
+      display: none;
     }
   </style>
 </head>
@@ -238,25 +313,36 @@
     <div class="loading-text">Loading COI form...</div>
   </div>
 
+  <div id="userEmailBadge" class="user-email-badge"></div>
+
   <div class="page-content" id="pageContent">
-    <div class="container">
-      <!-- Logo -->
-      <div class="logo-container">
-        <img src="media/Logo.png" alt="COI Portal" class="logo">
-      </div>
-      
-      <!-- Survey Container -->
-      <div id="surveyContainer"></div>
-      
-      <!-- Success Message -->
-      <div id="successMessage">
-        <div class="success-icon">✅</div>
-        <div class="success-title">Thank You!</div>
-        <div class="success-text">
-          Your COI information has been submitted successfully. We appreciate your time and will be in touch soon.
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        <!-- Logo -->
+        <div class="logo-container">
+          <img src="media/Logo.png" alt="COI Portal" class="logo">
+          <h1 class="site-title">AI for Math Fund</h1>
+        </div>
+        
+        <!-- Survey Container -->
+        <div id="surveyContainer"></div>
+        
+        <!-- Success Message -->
+        <div id="successMessage">
+          <div class="success-icon">✅</div>
+          <div class="success-title">Thank You!</div>
+          <div class="success-text">
+            Your COI information has been submitted successfully. We appreciate your time and will be in touch soon.
+          </div>
         </div>
       </div>
-    </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      &copy; <span id="year"></span> AI for Math Fund. All rights reserved.
+    </footer>
   </div>
 
   <!-- Custom Alert Modal -->
@@ -269,6 +355,19 @@
   </div>
 
   <script>
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Display logged-in user's email
+    const userEmail = sessionStorage.getItem("email");
+    if (userEmail) {
+      const badge = document.getElementById("userEmailBadge");
+      badge.textContent = userEmail;
+      badge.style.display = "block";
+    }
+
+    console.log("Survey page loaded. Initializing...");
+    
     // Custom alert functions
     function showCustomAlert(message) {
       document.getElementById("customAlertMessage").textContent = message;
@@ -281,8 +380,6 @@
 
     // Get data from sessionStorage
     const schema = JSON.parse(sessionStorage.getItem("surveySchema"));
-
-    console.log("Loaded schema:", schema);
 
     // Validate session data
     if (!schema) {
@@ -314,6 +411,9 @@
         survey.onCompleting.add(async (sender, options) => {
           // Prevent default completion
           options.allowComplete = false;
+
+          document.getElementById("loadingOverlay").querySelector(".loading-text").textContent = "Submitting form...";
+          document.getElementById("loadingOverlay").style.display = "flex";
           
           try {
             const response = await fetch(`${API_BASE}/submit`, {
@@ -328,6 +428,11 @@
             });
 
             const result = await response.json();
+
+            // Handle rate limit error (server is busy)
+            if (response.status === 429) {
+              throw new Error("The server is busy at this time. Please try again in 1 minute.");
+            }
             
             if (!response.ok) {
               throw new Error(result.error || "Failed to submit COI form");
@@ -337,12 +442,14 @@
             sessionStorage.clear();
 
             // Show success message
+            document.getElementById("loadingOverlay").style.display = "none";
             document.getElementById("surveyContainer").style.display = "none";
             document.getElementById("successMessage").style.display = "block";
 
           } catch (err) {
             console.error("Error submitting survey:", err.message);
             // Reset survey state but keep data
+            document.getElementById("loadingOverlay").style.display = "none";
             sender.clear(false);
             sender.data = sender.data;
             showCustomAlert(err.message || "An error occurred while submitting your COI form. Please try again.");
