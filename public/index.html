@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://db.onlinewebfonts.com/c/4cae543bca37f9c0d67178805b31cbb1?family=Plain-Ultralight"
+    rel="stylesheet">
+  <title>Conflict of Interest Submission Portal | AI for Math Fund</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Plain-Ultralight", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+      min-height: 100vh;
+    }
+
+    .main-content {
+      padding: 40px 20px 60px;
+    }
+
+    .logo-container {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      height: 80px;
+      width: auto;
+      object-fit: contain;
+      max-width: 250px;
+    }
+
+    .site-title {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #333;
+      margin: 12px 0 4px;
+    }
+
+    .tagline {
+      font-size: 14px;
+      color: #64748b;
+      font-weight: 400;
+    }
+
+    .container {
+      max-width: 420px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      display: none;
+    }
+
+    h2 {
+      color: #333;
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    button {
+      padding: 14px 28px;
+      margin-top: 15px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      background-color: #FF7F50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #ff6a3d;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(255, 127, 80, 0.35);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    input {
+      padding: 14px 16px;
+      width: 100%;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 15px;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #FF7F50;
+      box-shadow: 0 0 0 3px rgba(255, 127, 80, 0.15);
+    }
+
+    input::placeholder {
+      color: #94a3b8;
+    }
+
+    #error {
+      color: #dc2626;
+      margin-top: 15px;
+      font-size: 14px;
+      min-height: 20px;
+    }
+
+    .loading-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.97);
+      z-index: 9999;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid #e2e8f0;
+      border-top: 4px solid #FF7F50;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loading-text {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #475569;
+    }
+
+    .site-footer {
+      text-align: center;
+      padding: 20px;
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    .error-message {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .error-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .error-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #333;
+    }
+
+    .error-text {
+      font-size: 15px;
+      color: #475569;
+      line-height: 1.6;
+    }
+  </style>
+  <script type="text/javascript" src="constants.js"></script>
+</head>
+
+<body>
+
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Signing in...</div>
+  </div>
+
+  <main class="main-content">
+    <div class="logo-container">
+      <img src="media/Logo.png" alt="COI Portal Logo" class="logo">
+      <h1 class="site-title">AI for Math Fund</h1>
+      <h3>Conflict of Interest Declaration</h3>
+    </div>
+
+    <div class="container">
+      <h2>Sign In</h2>
+
+      <form id="loginForm" onsubmit="submitEmail(event)">
+        <div class="form-group">
+          <label for="emailInput">Email Address</label>
+          <input type="email" id="emailInput" placeholder="Enter your email address" required />
+        </div>
+
+        <div class="form-group">
+          <label for="passcodeInput">Passcode</label>
+          <input type="password" id="passcodeInput" placeholder="Enter your passcode" required />
+        </div>
+
+        <button type="submit" id="signInButton" disabled>Sign In</button>
+      </form>
+
+      <p id="error"></p>
+    </div>
+  </main>
+
+  <p
+    style="max-width: 420px; margin: 16px auto 0; text-align: center; font-size: 13px; color: #64748b; line-height: 1.6;">
+    Your login credentials have been e-mailed to you by the AI for Math program team. If you do not have credentials,
+    please reach out to <a href="mailto:aiformath@renphil.org"
+      style="color: #FF7F50; text-decoration: none;">aiformath@renphil.org</a>.
+  </p>
+
+  <footer class="site-footer">
+    &copy; <span id="year"></span> AI for Math Fund. All rights reserved.
+  </footer>
+
+  <script>
+
+    document.addEventListener('DOMContentLoaded', async function () {
+      document.getElementById("year").textContent = new Date().getFullYear();
+      await checkFormStatus();
+    });
+
+    window.addEventListener('pageshow', function (event) {
+      document.getElementById("loadingOverlay").style.display = "none";
+      document.getElementById("signInButton").disabled = false;
+      document.getElementById("error").textContent = "";
+    });
+
+    async function checkFormStatus() {
+      const loadingOverlay = document.getElementById("loadingOverlay");
+      const signInButton = document.getElementById("signInButton");
+      const container = document.querySelector(".container");
+      
+      loadingOverlay.style.display = "flex";
+      loadingOverlay.querySelector(".loading-text").textContent = "Loading...";
+
+      try {
+        const response = await fetch(`${API_BASE}/form-status`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" }
+        });
+
+        let data;
+        try { data = await response.json(); } catch { data = {}; }
+
+        // Handle form disabled (403 Forbidden)
+        if (response.status === 403) {
+          loadingOverlay.style.display = "none";
+          container.style.display = "block";
+          container.innerHTML = `
+            <div class="error-message">
+              <div class="error-icon">🔒</div>
+              <div class="error-title" style="color: #FF7F50;">Form Currently Unavailable</div>
+              <div class="error-text">${data.message || "This form is currently disabled"}</div>
+              ${data.reason || data.details ? `<div class="error-text" style="margin-top: 8px; color: #6b7280;">Reason: ${data.reason || data.details}</div>` : ""}
+            </div>
+          `;
+          return;
+        }
+
+        // Handle rate limit error (server is busy)
+        if (response.status === 429) {
+          loadingOverlay.style.display = "none";
+          container.style.display = "block";
+          container.innerHTML = `
+            <div class="error-message">
+              <div class="error-icon">⏱️</div>
+              <div class="error-title">Server Busy</div>
+              <div class="error-text">The server is busy at this time. Please try again in 1 minute.</div>
+            </div>
+          `;
+          return;
+        }
+
+        if (!response.ok) {
+          throw new Error(data.message || data.error || "Failed to check form status");
+        }
+
+        // Form is enabled, show the sign-in form
+        loadingOverlay.style.display = "none";
+        container.style.display = "block";
+        signInButton.disabled = false;
+
+        // Auto sign-in if credentials are provided as URL parameters
+        const params = new URLSearchParams(window.location.search);
+        const emailParam = params.get("email");
+        const passcodeParam = params.get("passcode");
+        if (emailParam && passcodeParam) {
+          document.getElementById("emailInput").value = emailParam;
+          document.getElementById("passcodeInput").value = passcodeParam;
+          // Remove credentials from URL to avoid storing them in browser history
+          history.replaceState(null, "", window.location.pathname);
+          submitEmail(new Event("submit"));
+        }
+
+      } catch (err) {
+        loadingOverlay.style.display = "none";
+        container.style.display = "block";
+        container.innerHTML = `
+          <div class="error-message">
+            <div class="error-icon">⚠️</div>
+            <div class="error-title">Connection Error</div>
+            <div class="error-text">${err.message || "Unable to connect. Please check your internet connection and try again."}</div>
+            <button onclick="location.reload()" style="margin-top: 20px;">Retry</button>
+          </div>
+        `;
+      }
+    }
+
+    async function submitEmail(event) {
+      event.preventDefault();
+
+      const email = document.getElementById("emailInput").value.trim();
+      const passcode = document.getElementById("passcodeInput").value.trim();
+      const errorEl = document.getElementById("error");
+      const signInButton = document.getElementById("signInButton");
+
+      errorEl.textContent = "";
+
+      if (!email || !passcode) {
+        errorEl.textContent = "Please enter both email and passcode.";
+        return;
+      }
+
+      document.getElementById("loadingOverlay").style.display = "flex";
+      signInButton.disabled = true;
+
+      try {
+        // Step 1: Authenticate
+        const authResponse = await fetch(`${API_BASE}/auth/authenticate`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, passcode })
+        });
+
+        let authData;
+        try { authData = await authResponse.json(); } catch { authData = {}; }
+
+        // Handle form disabled (403 Forbidden)
+        if (authResponse.status === 403) {
+          const disabledError = new Error(authData.message || "This form is currently disabled");
+          disabledError.isFormDisabled = true;
+          disabledError.reason = authData.reason || authData.details || "";
+          throw disabledError;
+        }
+
+        // Handle rate limit error (server is busy)
+        if (authResponse.status === 429) {
+          throw new Error("The server is busy at this time. Please try again in 1 minute.");
+        }
+
+        if (!authResponse.ok) {
+          throw new Error(
+            authData.message ||
+            authData.error ||
+            (authResponse.status === 401 ? "Invalid email or passcode. Please try again." :
+              authResponse.status === 404 ? "Account not found. Please check your email address." :
+                "Sign in failed. Please try again.")
+          );
+        }
+
+        // Step 2: Fetch survey schema
+        const schemaResponse = await fetch(`${API_BASE}/survey/schema`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email })
+        });
+
+        let schemaData;
+        try { schemaData = await schemaResponse.json(); } catch { schemaData = {}; }
+
+        // Handle form disabled (403 Forbidden)
+        if (schemaResponse.status === 403) {
+          const disabledError = new Error(schemaData.message || "This form is currently disabled");
+          disabledError.isFormDisabled = true;
+          disabledError.reason = schemaData.reason || schemaData.details || "";
+          throw disabledError;
+        }
+
+        // Handle rate limit error (server is busy)
+        if (schemaResponse.status === 429) {
+          throw new Error("The server is busy at this time. Please try again in 1 minute.");
+        }
+
+        if (!schemaResponse.ok) {
+          throw new Error(
+            schemaData.message ||
+            schemaData.error ||
+            "Failed to load the survey. Please try again."
+          );
+        }
+
+        // Store schema & email in sessionStorage
+        sessionStorage.setItem("surveySchema", JSON.stringify(schemaData.schema));
+        sessionStorage.setItem("email", email);
+
+        // Redirect to COI survey page
+        window.location.href = "/survey.html";
+
+      } catch (err) {
+        if (err.isFormDisabled) {
+          // Form is disabled - show info message without retry button
+          document.getElementById("loadingOverlay").style.display = "none";
+          document.querySelector(".container").innerHTML = `
+            <div class="error-message">
+              <div class="error-icon">🔒</div>
+              <div class="error-title" style="color: #FF7F50;">Form Currently Unavailable</div>
+              <div class="error-text">${err.message}</div>
+              ${err.reason ? `<div class="error-text" style="margin-top: 8px; color: #6b7280;">Reason: ${err.reason}</div>` : ""}
+            </div>
+          `;
+        } else {
+          document.getElementById("loadingOverlay").style.display = "none";
+          signInButton.disabled = false;
+          errorEl.textContent = err.message || "Unable to connect. Please check your internet connection and try again.";
+        }
+      }
+    }
+
+  </script>
+
+</body>
+
+</html>
